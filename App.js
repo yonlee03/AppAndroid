@@ -12,7 +12,7 @@ export default function App() {
   const [edad, setEdad] = useState('')
   const [correo, setCorreo] = useState('')
   const [sexo, setSexo] = useState('')
-  const [imagen, setImagen]= useState('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVFmLz5ilcjBX3D3mYXoJoBWjHW0wq13jhQinHKPoFgs69XUi4hErrLlNwHs9FMq2GKMo&usqp=CAU')
+  const [imagen, setImagen]= useState(null)
   const [texto, setTexto] = useState(null);
   const validaTexto =/[a-zA-ZÁ-ÿ\s]+$/;
   const validaNum =/[0-9\s]+$/;
@@ -36,7 +36,7 @@ export default function App() {
       if(display=='on' && camposC==true){
         setTexto('Mi nombre es '+nombre+'\nMis apellidos son '+apellidos+
         '\nMis edad es '+edad+'\nMis correo es '+correo+'\nMis sexo es '+sexo)
-        setImagen('https://www.telam.com.ar/thumbs/bluesteel/advf/imagenes/2022/03/62430962aaa5f_1200.jpg')
+        setImagen('https://i.pinimg.com/originals/f4/97/d5/f497d55088aba26d78c26958a636b97a.gif')
       }else{
         setTexto("")
         setImagen(null)
@@ -129,16 +129,16 @@ export default function App() {
            />
           <Text style={styles.Texto}>                    Mujer</Text>
       </View>
+      <Text numberOfLines={1} style={{color:'white',marginBottom:10}}>____________________________________________________</Text> 
       <Button 
           title="FINALIZAR"
           onPress={resultado} />
-          
+      <Text numberOfLines={1} style={{color:'white'}}>____________________________________________________</Text> 
       <Text style={styles.Azul}>{texto}</Text>
-      
-      <Image style={{width: 100, height: 100}} source={{
-        uri: imagen,}}/> 
-    
-      
+      <Text numberOfLines={1} style={{color:'white'}}>____________________________________________________</Text> 
+      <Image style={{width: 100, height: 100, marginTop:5}} source={{
+        uri: imagen,}}/>  
+                  
     </View>
   );
 }
@@ -155,10 +155,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   Azul: {
-    marginTop:20,
+    marginTop:5,
     color: "#3393FF",
     fontWeight: 'bold',
-    fontSize:20,
+    fontSize:15,
   },
   RojoV: {
     color: "red",
