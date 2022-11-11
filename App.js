@@ -1,23 +1,87 @@
 import React, { useState } from 'react';
-import { Text, Image, TextInput, View, StyleSheet, Button, Switch } from 'react-native';
+import { Text, Image, TextInput, View, StyleSheet, Button, Switch, Alert } from 'react-native';
 
 export default function App() {
   const [nombre, setNombre] = useState('')
+  const [validaName, setValidaName]= useState(false)
+  const [validaApellid, setValidaApellid]= useState(false)
+  const [validaEdad, setValidaEdad]= useState(false)
+  const [validaEmail, setValidaEmail]= useState(false)
   const [apellidos, setApellidos] = useState('')
+  const [camposC, setCamposC]= useState(false)
   const [edad, setEdad] = useState('')
   const [correo, setCorreo] = useState('')
   const [sexo, setSexo] = useState('')
+  const [imagen, setImagen]= useState('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVFmLz5ilcjBX3D3mYXoJoBWjHW0wq13jhQinHKPoFgs69XUi4hErrLlNwHs9FMq2GKMo&usqp=CAU')
   const [texto, setTexto] = useState(null);
+  const validaTexto =/[a-zA-ZÁ-ÿ\s]+$/;
+  const validaNum =/[0-9\s]+$/;
+  const validaCorreo = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-z\s]+$/
   const [isEnabled, setIsEnabled] = useState();
   const [display, setDisplay] = useState();
   
+  function validaCampos(nombre,apellidos,edad,correo){
+    if((validaName && validaApellid &&  validaEdad && validaEmail)==true ){
+      setCamposC(true)
+    }else{
+      Alert.alert("Faltan Campos")
+      setCamposC(false)
+    }
+
+  }
   const resultado = () => {
+      setSexo(isEnabled ? 'Mujer' : 'Hombre')
       setDisplay('on')
-      if(display=='on'){
+      validaCampos(nombre,apellidos,edad,correo)
+      if(display=='on' && camposC==true){
         setTexto('Mi nombre es '+nombre+'\nMis apellidos son '+apellidos+
         '\nMis edad es '+edad+'\nMis correo es '+correo+'\nMis sexo es '+sexo)
+        setImagen('https://www.telam.com.ar/thumbs/bluesteel/advf/imagenes/2022/03/62430962aaa5f_1200.jpg')
+      }else{
+        setTexto("")
+        setImagen(null)
       }
   }
+  function validadorNombre(name){
+    if(validaTexto.test(name)){
+      console.log('Validar 1')
+      setValidaName(true)
+      setNombre(name)
+    }else{
+      setValidaName(false)
+      setNombre(null)
+    }
+  }
+  function validadorApellido(apellido){
+    if(validaTexto.test(apellido)){
+      console.log('Validar 2')
+      setValidaApellid(true)
+      setApellidos(apellido)
+    }else{
+      setValidaApellid(false)
+      setApellidos(null)
+    }
+  }
+    function validadorEdad(edad){
+      if(validaNum.test(edad)){
+        console.log('Validar 3')
+        setValidaEdad(true)
+        setEdad(edad)
+      }else{
+        setValidaEdad(false)
+        setEdad(null)
+      }
+  }
+  function validadorCorreo(correo){
+    if(validaCorreo.test(correo)){
+      console.log('Validar 4')
+      setValidaEmail(true)
+      setCorreo(correo)
+    }else{
+      setValidaEmail(false)
+      setCorreo(null)
+    }
+}
 
   return (
     <View style={styles.CentradoV}>
@@ -25,33 +89,33 @@ export default function App() {
 
       <View style={styles.TextoV}>
         <Text style={styles.Texto}>DIME TU NOMBRE  </Text>
-        <TextInput style={styles.TextImp}
-          onChangeText={nombre => setNombre(nombre)}
-          value={nombre}
-          defaultValue="Nombre" />
+        <TextInput style={validaName ? [styles.VerdeV]:[styles.RojoV]}
+          onChangeText={nombre => validadorNombre(nombre)}
+          
+          />
       </View>
       <View style={styles.TextoV}>
         <Text style={styles.Texto}>DIME TU APELLIDO</Text>
-        <TextInput style={styles.TextImp}
+        <TextInput style={validaApellid ? [styles.VerdeV]:[styles.RojoV]}
           value={apellidos}
-          onChangeText={apellidos => setApellidos(apellidos)}
-          defaultValue="APELLIDO" />
+          onChangeText={apellidos => validadorApellido(apellidos)}
+          />
       </View>
 
       <View style={styles.TextoV}>
         <Text style={styles.Texto}>DIME TU EDAD        </Text>
-        <TextInput style={styles.TextImp}
+        <TextInput style={validaEdad ? [styles.VerdeV]:[styles.RojoV]}
           value={edad}
-          onChangeText={edad => setEdad(edad)}
-          defaultValue="EDAD" />
+          onChangeText={edad => validadorEdad(edad)}
+          />
       </View>
 
       <View style={styles.TextoV}>
         <Text style={styles.Texto}>DIME TU CORREO  </Text>
-        <TextInput style={styles.TextImp}
-          value={correo}
-          onChangeText={correo => setCorreo(correo)}
-          defaultValue="CORREO" />
+        <TextInput style={validaCorreo ? [styles.VerdeV]:[styles.RojoV]}
+          onChangeText={correo => validadorCorreo(correo)}
+          
+         />
       </View>
 
       <View style={styles.TextoV}>
@@ -70,6 +134,10 @@ export default function App() {
           onPress={resultado} />
           
       <Text style={styles.Azul}>{texto}</Text>
+      
+      <Image style={{width: 100, height: 100}} source={{
+        uri: imagen,}}/> 
+    
       
     </View>
   );
@@ -92,8 +160,28 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize:20,
   },
+  RojoV: {
+    color: "red",
+    fontWeight: 'bold',
+    marginLeft: 20,
+    height: 40,
+    width: 170,
+    textAlign: "center",
+    borderColor: "#3198EE",
+    borderWidth: 2,
+  },
+  VerdeV: {
+    color: "green",
+    fontWeight: 'bold',
+    marginLeft: 20,
+    height: 40,
+    width: 170,
+    textAlign: "center",
+    borderColor: "#3198EE",
+    borderWidth: 2,
+  },
   Centrado: {
-    marginTop:170,
+    marginTop:80,
     color: "#58E0F6",
     fontWeight: 'bold',
     fontSize: 50,
