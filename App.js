@@ -69,7 +69,7 @@ function Users({navigation}) {
         <View style={styles.item}>
            <Button 
             title={item.title}
-            onPress={() => navigation.navigate("Details", {username:item.nombre, age:19,})} />
+            onPress={() => navigation.navigate("Details", {username:item.nombre, age: item.age,})} />
      
       <Icon name={item.Icon} size={100} color="#4F8EF7"/>
     </View>
