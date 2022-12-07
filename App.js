@@ -44,21 +44,26 @@ function Users({navigation}) {
   { id: '1',
   title: 'JOSE',
   nombre:"Jose",
+  age:19,
   Icon: 'account-circle',},
   { id: '2',
   title: 'PEDRO',
+  age:23,
   nombre:"Pedro",
   Icon: 'alien',},
   { id: '3',
   title: 'MARTI',
   nombre:"Marti",
+  age:52,
   Icon: 'alpha-i-box',},
   { id: '4',
   title: 'DAVID',
+  age:89,
   nombre:"David",
   Icon: 'alpha-j-box',},
   { id: '5',
   title: 'ALVARO',
+  age:19,
   nombre:"Alvaro",
   Icon: 'alpha-l-circle-outline',},
   ];
@@ -97,10 +102,10 @@ function DetailsScreen({route}) {
     </View>
   );
 }
-function Homeee() {
+function Home1() {
   return (
     <Stack.Navigator initialRouteName="Home">
-     <Tab.Screen name="Home" component={HomeScreen} options={{title: "Casita", headerTitleAlign: 'center'}} />
+    <Stack.Screen name="Home" component={HomeScreen} options={{title: "Casita", headerTitleAlign: 'center'}} />
     <Stack.Screen  name="Users" component={Users} />
     <Stack.Screen  name="Details" component={DetailsScreen} />
     <Stack.Screen  name="Form" component={Form} />
@@ -129,21 +134,18 @@ function App() {
               iconName = focused
                 ? 'ios-home'
                 : 'ios-home-outline';
-            }if (route.name === 'Search') {
-              iconName = focused ? 'ios-search' : 'ios-search-outline';
-            }if (route.name === 'Form') {
-              iconName = focused ? 'ios-list' : 'ios-list-outline';
-            }if (route.name === 'Emotes') {
-              iconName = focused ? 'ios-list' : 'ios-list-outline';
+            }if (route.name === 'SearchScreen') {
+              iconName = focused ? 'information' : 'information-outline';
+            }if (route.name === 'Home1') {
+              iconName = focused ? 'person-circle' : 'person-circle-outline';
             }
-
             // You can return any component that you like here!
             return <Ionicons name={iconName} size={size} color={color} />;
           },
           tabBarActiveTintColor: 'blue',
           tabBarInactiveTintColor: 'gray',
-        })} initialRouteName="Homeee">
-        <Stack.Screen  name="Homeee" component={Homeee} />
+        })} initialRouteName="Home1">
+        <Stack.Screen  name="Home1" component={Home1} />
         <Tab.Screen name="SearchScreen" component={SearchScreen} options={{title: "Search", headerTitleAlign: 'center'}} />
         
       </Tab.Navigator>
