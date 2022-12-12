@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Text, Image, TextInput, View, StyleSheet, Button, Switch, Alert,FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 export default function Form() {
   const [nombre, setNombre] = useState('')
   const [validaName, setValidaName]= useState(false)

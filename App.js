@@ -5,121 +5,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Form from './Form';
-import emotes from './Emotes';
-import Emotes from './Emotes';
+import HomeStack from '../projecto1/src/navigations/HomeStack';
+import SearchScreen from './src/containers/SearchScreen';
 
-function HomeScreen({navigation}) {
-  const [nombre, setNombre] = useState('')
-  return (
-    
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
-      <Text style={{marginBottom:10}}>Home Screen</Text>
-          <View style={{marginBottom:10}}>
-          <Button 
-          title="Form"
-          onPress={() => navigation.navigate("Form")} />
-          </View>
-          <View style={{marginBottom:10}}>
-          <Button 
-          title="Users"
-          onPress={() => navigation.navigate("Users")} />
-          </View>
-          <View style={{marginBottom:10}}>
-          <TextInput style={{backgroundColor:'black', color:'white'}}
-          value={nombre}
-          onChangeText={nombre => setNombre(nombre)}
-          />
-          <Button 
-          title="Details"
-          onPress={() => navigation.navigate("Details", {username:nombre, age:19,})}/>
-          </View>
-    </View>
-  );
-}
 
-function Users({navigation}) {
-  
-  const DATA = [
-  { id: '1',
-  title: 'JOSE',
-  nombre:"Jose",
-  age:19,
-  Icon: 'account-circle',},
-  { id: '2',
-  title: 'PEDRO',
-  age:23,
-  nombre:"Pedro",
-  Icon: 'alien',},
-  { id: '3',
-  title: 'MARTI',
-  nombre:"Marti",
-  age:52,
-  Icon: 'alpha-i-box',},
-  { id: '4',
-  title: 'DAVID',
-  age:89,
-  nombre:"David",
-  Icon: 'alpha-j-box',},
-  { id: '5',
-  title: 'ALVARO',
-  age:19,
-  nombre:"Alvaro",
-  Icon: 'alpha-l-circle-outline',},
-  ];
-  
-  
-    const renderItem = ({ item }) => {
-      return (
-        <View style={styles.item}>
-           <Button 
-            title={item.title}
-            onPress={() => navigation.navigate("Details", {username:item.nombre, age: item.age,})} />
-     
-      <Icon name={item.Icon} size={100} color="#4F8EF7"/>
-    </View>
-      )
-    }
-  
-    return (
-      <SafeAreaView style={styles.container}>
-        
-        <FlatList
-          data={DATA}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-        />
-      </SafeAreaView>
-    );
-  }
 
-function DetailsScreen({route}) {
-  const{username,age}=route.params;
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>{username}</Text>
-      <Text>{age}</Text>
-    </View>
-  );
-}
-function Home1() {
-  return (
-    <Stack.Navigator initialRouteName="Home">
-    <Stack.Screen name="Home" component={HomeScreen} options={{title: "Casita", headerTitleAlign: 'center'}} />
-    <Stack.Screen  name="Users" component={Users} />
-    <Stack.Screen  name="Details" component={DetailsScreen} />
-    <Stack.Screen  name="Form" component={Form} />
-  </Stack.Navigator>
-  );
-}
-
-function SearchScreen() {
-  return (
-    <View>
-    <Text style={{fontSize:80, color:"red"}}>EL USO DE LA APLICACION ES INVALIDO</Text>
-    </View>
-  );
-}
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -129,14 +19,13 @@ function App() {
       <Tab.Navigator screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
-
             if (route.name === 'Home') {
               iconName = focused
                 ? 'ios-home'
                 : 'ios-home-outline';
             }if (route.name === 'SearchScreen') {
               iconName = focused ? 'information' : 'information-outline';
-            }if (route.name === 'Home1') {
+            }if (route.name === 'HomeStack') {
               iconName = focused ? 'person-circle' : 'person-circle-outline';
             }
             // You can return any component that you like here!
@@ -144,30 +33,12 @@ function App() {
           },
           tabBarActiveTintColor: 'blue',
           tabBarInactiveTintColor: 'gray',
-        })} initialRouteName="Home1">
-        <Stack.Screen  name="Home1" component={Home1} />
+        })} initialRouteName="HomeStack">
+        <Stack.Screen  name="HomeStack" component={HomeStack} />
         <Tab.Screen name="SearchScreen" component={SearchScreen} options={{title: "Search", headerTitleAlign: 'center'}} />
-        
       </Tab.Navigator>
     </NavigationContainer>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-  },
-  item: {
-    backgroundColor: 'darkblue',
-    color:'white',
-    padding: 10,
-    marginVertical: 8,
-    marginHorizontal: 16,
-  },
-  title: {
-    fontSize: 15,
-    color:'white',
-  },
-});
 
 export default App;
