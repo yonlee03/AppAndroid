@@ -23,6 +23,11 @@ export default function HomeScreen({navigation}) {
             onPress={() => navigation.navigate("Users")} />
             </View>
             <View style={{marginBottom:10}}>
+            <Button 
+            title="Fruits"
+            onPress={() => navigation.navigate("Fruits")} />
+            </View>
+            <View style={{marginBottom:10}}>
             <TextInput style={{backgroundColor:'black', color:'white'}}
             value={nombre}
             onChangeText={nombre => setNombre(nombre)}

@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { View, Text,Button,TextInput,SafeAreaView,FlatList, StyleSheet,StatusBar } from 'react-native';
 import Users from '../containers/Users';
 import Form from '../../Form';
+import Fruits from '../../Fruits';
 import DetailsScreen from '../containers/DetailsScreen';
 import HomeScreen  from '../containers/HomeScreen';
 const Stack = createNativeStackNavigator();
@@ -15,6 +16,7 @@ export default function HomeStack() {
       <Stack.Screen  name="Users" component={Users} />
       <Stack.Screen  name="Details" component={DetailsScreen} />
       <Stack.Screen  name="Form" component={Form} />
+      <Stack.Screen  name="Fruits" component={Fruits} />
     </Stack.Navigator>
     );
   }
